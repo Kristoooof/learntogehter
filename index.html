@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KódAkadémia – Programozz magyarul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F3EE;
+    --bg2: #EDEAE3;
+    --bg3: #E3DFD7;
+    --ink: #1A1914;
+    --ink2: #4A4840;
+    --ink3: #8A8780;
+    --accent: #0F4FBA;
+    --accent-light: #D6E4FF;
+    --accent2: #C94A00;
+    --border: rgba(26,25,20,0.12);
+    --border-strong: rgba(26,25,20,0.25);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'Lora', serif;
+    --font-mono: 'DM Mono', monospace;
+    --nav-h: 64px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    height: var(--nav-h);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+  }
+
+  .nav-logo .logo-badge {
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+
+  .nav-link {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--ink2);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border: none; background: none;
+  }
+
+  .nav-link:hover { background: var(--bg2); color: var(--ink); }
+  .nav-link.active { background: var(--accent); color: #fff; }
+
+  /* ── PAGES ── */
+  .page { display: none; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-media {
+    position: relative;
+    background: var(--ink);
+    border-radius: var(--radius);
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hero-media-inner {
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+
+  .hero-media .code-lines {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0a0a12 0%, #0d1829 100%);
+  }
+
+  .code-line {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: #4EC9B0;
+    opacity: 0;
+    animation: typein 0.4s forwards;
+  }
+
+  .code-line:nth-child(1) { animation-delay: 0.1s; color: #569CD6; }
+  .code-line:nth-child(2) { animation-delay: 0.5s; color: #DCDCAA; }
+  .code-line:nth-child(3) { animation-delay: 0.9s; color: #CE9178; }
+  .code-line:nth-child(4) { animation-delay: 1.3s; color: #4EC9B0; }
+  .code-line:nth-child(5) { animation-delay: 1.7s; color: #569CD6; }
+  .code-line:nth-child(6) { animation-delay: 2.1s; color: #B5CEA8; }
+  .code-line:nth-child(7) { animation-delay: 2.5s; color: #D4D4D4; }
+
+  @keyframes typein { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: translateX(0); } }
+
+  .hero-text {}
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.03em;
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); font-family: var(--font-body); }
+
+  .hero p {
+    color: var(--ink2);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #0a3d9e; transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border-strong); }
+  .btn-ghost:hover { background: var(--bg2); }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ── STATS ── */
+  .stats-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--ink3);
+    font-family: var(--font-head);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  /* ── PROMO STRIP ── */
+  .promo {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin: 0 2rem;
+  }
+
+  .promo-title {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .promo-title em { color: #6BB8FF; font-style: italic; font-family: var(--font-body); }
+
+  .promo-text { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .btn-light { background: #fff; color: var(--ink); }
+  .btn-light:hover { background: #eee; }
+
+  .promo-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .promo-feature {
+    display: flex; align-items: flex-start; gap: 10px;
+    color: rgba(255,255,255,0.85);
+    font-size: 0.9rem;
+  }
+
+  .feat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #6BB8FF;
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ── SEARCH PAGE ── */
+  .search-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+  }
+
+  .search-header h1 {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+
+  .search-header p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; font-size: 1rem; }
+
+  .search-box-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    border-radius: 100px;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    box-shadow: var(--shadow);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink3);
+    font-size: 1.1rem;
+    pointer-events: none;
+  }
+
+  .filter-bar {
+    max-width: 1140px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--ink2);
+    letter-spacing: 0.03em;
+    margin-right: 0.25rem;
+  }
+
+  .filter-btn {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--ink2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .cards-section {
+    max-width: 1140px;
+    margin: 2rem auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .cards-count {
+    font-family: var(--font-head);
+    font-size: 0.8rem;
+    color: var(--ink3);
+    margin-bottom: 1.25rem;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    border-color: var(--accent);
+  }
+
+  .card-thumb {
+    background: var(--bg2);
+    border-radius: var(--radius-sm);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-thumb::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.18s;
+    transform-origin: left;
+  }
+
+  .card:hover .card-thumb::after { transform: scaleX(1); }
+
+  .card-kat {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 0.8rem;
+    color: var(--ink2);
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-head);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--ink3);
+    font-family: var(--font-head);
+    font-size: 1rem;
+  }
+
+  /* ── COURSE PAGE ── */
+  .course-top {
+    background: var(--ink);
+    color: #fff;
+    padding: 3rem 2rem 2.5rem;
+  }
+
+  .course-breadcrumb {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .course-breadcrumb button {
+    background: none; border: none;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    transition: color 0.15s;
+  }
+
+  .course-breadcrumb button:hover { color: #fff; }
+
+  .course-header {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .course-kat {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .course-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .course-leiras {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 640px;
+  }
+
+  .course-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .course-section-title {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .course-section-title .icon {
+    width: 28px; height: 28px;
+    border-radius: var(--radius-sm);
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .fiddle-wrap {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+    background: #1e1e2e;
+  }
+
+  .fiddle-bar {
+    background: #13131f;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .fiddle-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .fiddle-bar-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.35);
+    margin-left: auto;
+    letter-spacing: 0.04em;
+  }
+
+  .fiddle-wrap iframe {
+    width: 100%;
+    height: 420px;
+    border: none;
+    display: block;
+  }
+
+  .magyarazat-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem 2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.85;
+    color: var(--ink2);
+  }
+
+  .magyarazat-box p { margin-bottom: 1rem; }
+  .magyarazat-box p:last-child { margin-bottom: 0; }
+  .magyarazat-box code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    background: var(--bg2);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .course-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .course-nav-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex: 1;
+    max-width: 280px;
+  }
+
+  .course-nav-btn:hover { border-color: var(--accent); }
+  .course-nav-btn.right { text-align: right; margin-left: auto; }
+
+  .cnb-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cnb-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem 2rem; gap: 2rem; }
+    .promo { grid-template-columns: 1fr; margin: 0 1rem; padding: 2rem; }
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .section { padding: 3rem 1.5rem; }
+    nav { padding: 0 1.25rem; }
+    .course-body { padding: 2rem 1.25rem; }
+    .course-nav { flex-direction: column; }
+    .course-nav-btn { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo" onclick="navigate('fooldal')">
+    <span class="logo-badge">&lt;/&gt;</span>
+    KódAkadémia
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" id="nav-fooldal" onclick="navigate('fooldal')">Főoldal</button>
+    <button class="nav-link" id="nav-tananyagok" onclick="navigate('tananyagok')">Tananyagok</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     FŐOLDAL
+══════════════════════════════════ -->
+<div class="page active" id="page-fooldal">
+
+  <section class="hero">
+    <div class="hero-media">
+      <div class="code-lines">
+        <div class="code-line">using System;</div>
+        <div class="code-line">class Program {</div>
+        <div class="code-line">  static void Main() {</div>
+        <div class="code-line">    Console.WriteLine(</div>
+        <div class="code-line">      "Szia, Világ!"</div>
+        <div class="code-line">    ); // ← te is tudod!</div>
+        <div class="code-line">  }</div>
+      </div>
+    </div>
+    <div class="hero-text">
+      <div class="hero-tag">// C# programozás magyarul</div>
+      <h1>Tanulj programozni <em>lépésről lépésre</em></h1>
+      <p>Interaktív feladatok, beágyazott szerkesztő, és érthetö magyarázatok – egész a nullától a valódi C# tudásig.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="navigate('tananyagok')">Böngéssz tananyagok →</button>
+        <button class="btn btn-ghost" onclick="navigate('tananyag', tananyagok[0])">Első lecke</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat"><div class="stat-num">10</div><div class="stat-label">Tananyag</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Ingyenes</div></div>
+      <div class="stat"><div class="stat-num">C#</div><div class="stat-label">Nyelv</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Próbálkozás</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">// Témakörök</div>
+    <div class="section-title">Mit tanulhatsz?</div>
+    <div class="cards-grid" id="home-cards"></div>
+  </div>
+
+  <div style="max-width:1140px;margin:0 auto;padding:0 0 5rem;">
+    <div class="promo">
+      <div>
+        <h2 class="promo-title">Miért C# és <em>.NET Fiddle</em>?</h2>
+        <p class="promo-text">Nincs szükség semmilyen telepítésre – a kód egyenesen a böngésződben fut. A .NET Fiddle online szerkesztő lehetővé teszi, hogy azonnal kipróbáld az oldalon tanultakat.</p>
+        <button class="btn btn-light" onclick="navigate('tananyagok')">Kezdj el tanulni</button>
+      </div>
+      <ul class="promo-features">
+        <li class="promo-feature"><div class="feat-dot"></div><span>Beágyazott online szerkesztő minden feladathoz</span></li>
+        <li class="promo-feature"><div class="feat-dot"></div><span>Lépésről-lépésre magyarázatok</span></li>
+        <li class="promo-feature"><div class="feat-dot"></div><span>Érthetö, magyar nyelvu leírások</span></li>
+        <li class="promo-feature"><div class="feat-dot"></div><span>Ingyenes és regisztráció nélkül</span></li>
+        <li class="promo-feature"><div class="feat-dot"></div><span>Folyamatosan bővülo tanagyagok</span></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     TANANYAGOK (KERESŐ)
+══════════════════════════════════ -->
+<div class="page" id="page-tananyagok">
+
+  <div class="search-header">
+    <h1>Tananyagok</h1>
+    <p>Keresd meg a számodra megfeleló leckét</p>
+    <div class="search-box-wrap">
+      <span class="search-icon">&#128269;</span>
+      <input class="search-box" type="text" id="search-input" placeholder="Keresés pl. ciklus, tömb, osztály…" oninput="renderCards()">
+    </div>
+  </div>
+
+  <div class="filter-bar" id="filter-bar"></div>
+
+  <div class="cards-section">
+    <div class="cards-count" id="cards-count"></div>
+    <div class="cards-grid" id="search-cards"></div>
+    <div class="no-results" id="no-results" style="display:none;">
+      Nincs találat – próbálj más kulcsszóra keresni.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     TANANYAG (EGYEDI)
+══════════════════════════════════ -->
+<div class="page" id="page-tananyag">
+
+  <div class="course-top">
+    <div class="course-breadcrumb">
+      <button onclick="navigate('fooldal')">Főoldal</button>
+      <span>/</span>
+      <button onclick="navigate('tananyagok')">Tananyagok</button>
+      <span>/</span>
+      <span id="course-breadcrumb-title" style="color:rgba(255,255,255,0.8)"></span>
+    </div>
+    <div class="course-header">
+      <div class="course-kat" id="course-kat"></div>
+      <h1 class="course-title" id="course-title"></h1>
+      <p class="course-leiras" id="course-leiras"></p>
+    </div>
+  </div>
+
+  <div class="course-body">
+
+    <h2 class="course-section-title">
+      <div class="icon">&#9881;</div>
+      Interaktív szerkesztő
+    </h2>
+
+    <div class="fiddle-wrap">
+      <div class="fiddle-bar">
+        <div class="fiddle-dot" style="background:#ff5f56"></div>
+        <div class="fiddle-dot" style="background:#ffbd2e"></div>
+        <div class="fiddle-dot" style="background:#27c93f"></div>
+        <span class="fiddle-bar-label">dotnetfiddle.net</span>
+      </div>
+      <iframe id="course-iframe" src="" title="Online szerkesztő" allowfullscreen></iframe>
+    </div>
+
+    <h2 class="course-section-title">
+      <div class="icon">&#128218;</div>
+      Magyarázat
+    </h2>
+
+    <div class="magyarazat-box" id="course-magyarazat"></div>
+
+    <div class="course-nav" id="course-nav"></div>
+
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2025 KódAkadémia &nbsp;·&nbsp; C# programozás magyarul &nbsp;·&nbsp; Minden jog fenntartva
+</footer>
+
+<script>
+/* ══════════════════════════
+   JSON ADATOK
+══════════════════════════ */
+const tananyagok = [
+  {
+    id: 1,
+    cim: "Hello World",
+    kategoria: "Alapok",
+    ikon: "👋",
+    leiras: "Írd meg az első C# programodat! Ismerkedj meg a Console.WriteLine metódussal és a program alapstruktúrájával.",
+    magyarazat: `<p>A C# programok belépési pontja a <code>static void Main()</code> metódus. Minden program innen indul el.</p>
+<p>A <code>Console.WriteLine()</code> szöveget ír ki a képernyőre, majd sort töreget. A <code>Console.Write()</code> ugyanazt teszi, de sortörés nélkül.</p>
+<p>Az idézőjelek közé írt szöveg egy <code>string</code> literál. A <code>using System;</code> sor szükséges, hogy hozzáférjünk az alap osztályokhoz, mint a <code>Console</code>.</p>`,
+    link: "https://dotnetfiddle.net/Widget/MZb1vE"
+  },
+  {
+    id: 2,
+    cim: "Változók és típusok",
+    kategoria: "Alapok",
+    ikon: "📦",
+    leiras: "Tanuld meg hogyan tárolj adatokat változókban. Ismerd meg az int, string, bool és double típusokat.",
+    magyarazat: `<p>A változók névvel ellátott tárhelyek az adatoknak. C#-ban minden változónak van típusa, amit deklaráláskor meg kell adni.</p>
+<p>Fontosabb alaptípusok: <code>int</code> (egész szám), <code>double</code> (tizedes szám), <code>string</code> (szöveg), <code>bool</code> (igaz/hamis), <code>char</code> (egyetlen karakter).</p>
+<p>A <code>var</code> kulcsszóval a fordító maga következteti ki a típust. Pl. <code>var nev = "Anna"</code> esetén a <code>nev</code> automatikusan string lesz.</p>`,
+    link: "https://dotnetfiddle.net/Widget/8Yp2dj"
+  },
+  {
+    id: 3,
+    cim: "Feltételes elágazások",
+    kategoria: "Vezérlés",
+    ikon: "🔀",
+    leiras: "Hozz döntéseket a programodban az if-else és switch utasításokkal.",
+    magyarazat: `<p>Az <code>if</code> utasítás lehetővé teszi, hogy a program különböző utakat kövessen, attól függően, hogy egy feltétel igaz-e vagy sem.</p>
+<p>Ha több feltételt kell vizsgálni, az <code>else if</code> segít. A <code>switch</code> utasítás egyetlen értéket több esettel hasonlít össze – olvasthatóbb sok ágú logikánál.</p>
+<p>A feltételek összehasonlító operátorokból épülnek fel: <code>==</code> (egyenlő), <code>!=</code> (nem egyenlő), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</p>`,
+    link: "https://dotnetfiddle.net/Widget/JiV7wQ"
+  },
+  {
+    id: 4,
+    cim: "Ciklusok",
+    kategoria: "Vezérlés",
+    ikon: "🔄",
+    leiras: "Ismételj meg utasításokat a for, while és foreach ciklusokkal.",
+    magyarazat: `<p>A ciklusok megismételt kódblokkokat hajtanak végre. A <code>for</code> ciklus akkor ideális, ha ismerjük az ismétlések számát előre.</p>
+<p>A <code>while</code> ciklus addig fut, amíg a feltétel igaz. A <code>do-while</code> legalább egyszer lefut, mielőtt a feltételt ellenőrzi.</p>
+<p>A <code>foreach</code> ciklus gyűjteményeken (pl. tömbök, listák) iterál végig – olvashatóbb és biztonságosabb, mint a hagyományos index-alapú for ciklus.</p>`,
+    link: "https://dotnetfiddle.net/Widget/PqKcRt"
+  },
+  {
+    id: 5,
+    cim: "Tömbök és listák",
+    kategoria: "Adatszerkezetek",
+    ikon: "📋",
+    leiras: "Tárolj több adatot egyszerre tömbökkel és List&lt;T&gt; gyűjteményekkel.",
+    magyarazat: `<p>A tömb (<code>int[] szamok = new int[5];</code>) rögzített méretű, azonos típusú elemek sorozata. Az elemekhez nullától kezdődő indexszel férünk hozzá.</p>
+<p>A <code>List&lt;T&gt;</code> dinamikusan bővíthető gyűjtemény. Elemeket adhatsz hozzá (<code>.Add()</code>), eltávolíthatsz (<code>.Remove()</code>), és lekérheted a méretét (<code>.Count</code>).</p>
+<p>A LINQ lekérdezésekkel szűrhetők, rendezhetők és transzformálhatók a gyűjtemények – erről egy külön leckében lesz szó.</p>`,
+    link: "https://dotnetfiddle.net/Widget/xQnLmF"
+  },
+  {
+    id: 6,
+    cim: "Metódusok",
+    kategoria: "Struktúra",
+    ikon: "⚙️",
+    leiras: "Szervezd kódodat újrafelhasználható metódusokba. Ismerd meg a paramétereket és a visszatérési értékeket.",
+    magyarazat: `<p>A metódusok névvel ellátott, újrafelhasználható kódblokkok. Csökkentik a kód ismétlést és javítják az olvashatóságot.</p>
+<p>Egy metódus visszatérési típusa jelzi, mit ad vissza (<code>int</code>, <code>string</code>, stb.). Ha nem ad vissza semmit, a típus <code>void</code>.</p>
+<p>A paraméterek a metódusnak átadott bemeneti értékek. Megkülönböztetünk érték szerint (<code>int x</code>) és referencia szerint (<code>ref int x</code>) átadott paramétereket.</p>`,
+    link: "https://dotnetfiddle.net/Widget/aBcDeF"
+  },
+  {
+    id: 7,
+    cim: "Osztályok és objektumok",
+    kategoria: "OOP",
+    ikon: "🏗️",
+    leiras: "Lépj be az objektumorientált programozás világába. Hozz létre osztályokat és objektumokat.",
+    magyarazat: `<p>Az osztály egy sablon (tervrajz) az objektumok létrehozásához. Az objektum az osztály egy konkrét példánya (<em>instance</em>).</p>
+<p>Az osztály tartalmaz <strong>mezőket/tulajdonságokat</strong> (adatok) és <strong>metódusokat</strong> (viselkedés). A konstruktor az objektum létrehozásakor fut le.</p>
+<p>Az egységbezárás (<em>encapsulation</em>) elve alapján a belső adatokat érdemes privátnak jelölni (<code>private</code>) és csak publikus tulajdonságokon (<code>public</code>) keresztül elérhetővé tenni.</p>`,
+    link: "https://dotnetfiddle.net/Widget/gHiJkL"
+  },
+  {
+    id: 8,
+    cim: "Öröklés",
+    kategoria: "OOP",
+    ikon: "🧬",
+    leiras: "Használd az öröklés erejét! Hozz létre osztályhierarchiákat a kód újrafelhasználásához.",
+    magyarazat: `<p>Az öröklés (<em>inheritance</em>) lehetővé teszi, hogy egy osztály átvegye egy másik osztály tulajdonságait és metódusait. Az örökölt osztályt szülő (alap) osztálynak, az örökló osztályt gyerek osztálynak nevezzük.</p>
+<p>C#-ban a <code>:</code> operátorral jelöljük az öröklést: <code>class Kutya : Allat</code>. A gyerek osztály felülírhatja (<code>override</code>) a szülő metódusait, ha azok <code>virtual</code>-ként vannak jelölve.</p>
+<p>A <code>base</code> kulcsszóval a szülőosztály metódusait hívhatjuk meg a gyerekből.</p>`,
+    link: "https://dotnetfiddle.net/Widget/mNoPqR"
+  },
+  {
+    id: 9,
+    cim: "Kivételkezelés",
+    kategoria: "Haladó",
+    ikon: "🛡️",
+    leiras: "Védd meg programodat a hibáktól! Tanuld meg a try-catch-finally blokkok használatát.",
+    magyarazat: `<p>A kivételek (<em>exceptions</em>) futásidejű hibák, amelyek megakadályozhatják a program normális működését. A <code>try-catch</code> blokk kezeli ezeket.</p>
+<p>A <code>try</code> blokkba kerül a potenciálisan hibás kód. Ha kivétel keletkezik, a <code>catch</code> blokk kapja el. A <code>finally</code> blokk mindig lefut – kivételtől függetlenül.</p>
+<p>Különböző kivételtípusokat különböző <code>catch</code> blokkokkal kezelhetünk: pl. <code>DivideByZeroException</code>, <code>NullReferenceException</code>, <code>FormatException</code>.</p>`,
+    link: "https://dotnetfiddle.net/Widget/sTuVwX"
+  },
+  {
+    id: 10,
+    cim: "LINQ alapok",
+    kategoria: "Haladó",
+    ikon: "🔍",
+    leiras: "Tanuld meg a LINQ (Language Integrated Query) lekérdezési szintaxist adatok hatékony szűréséhez és rendezéséhez.",
+    magyarazat: `<p>A LINQ lehetővé teszi az adatok lekérdezését C# szintaxissal, hasonlóan az SQL-hez. Tömbökön, listákon, és más gyűjteményeken is alkalmazható.</p>
+<p>Az alapvető LINQ metódusok: <code>Where()</code> (szűrés), <code>Select()</code> (transzformáció), <code>OrderBy()</code> (rendezés), <code>First()</code>/<code>FirstOrDefault()</code> (első elem), <code>Count()</code> (darabszám).</p>
+<p>A LINQ lekérdezések lazán kiértékeltek (<em>lazy evaluation</em>): csak akkor futnak le ténylegesen, amikor az eredményre szükség van (pl. <code>.ToList()</code> hívásakor).</p>`,
+    link: "https://dotnetfiddle.net/Widget/yZaBcD"
+  }
+];
+
+/* ══════════════════════════
+   ROUTING
+══════════════════════════ */
+let currentPage = 'fooldal';
+let currentCourse = null;
+let activeFilter = 'Összes';
+
+function navigate(page, data) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+
+  if (page === 'fooldal') {
+    document.getElementById('page-fooldal').classList.add('active');
+    document.getElementById('nav-fooldal').classList.add('active');
+  } else if (page === 'tananyagok') {
+    document.getElementById('page-tananyagok').classList.add('active');
+    document.getElementById('nav-tananyagok').classList.add('active');
+    renderCards();
+  } else if (page === 'tananyag' && data) {
+    document.getElementById('page-tananyag').classList.add('active');
+    document.getElementById('nav-tananyagok').classList.add('active');
+    renderCourse(data);
+  }
+
+  currentPage = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════
+   HOME CARDS
+══════════════════════════ */
+function renderHomeCards() {
+  const container = document.getElementById('home-cards');
+  container.innerHTML = tananyagok.map(t => cardHTML(t)).join('');
+}
+
+/* ══════════════════════════
+   SEARCH CARDS
+══════════════════════════ */
+function renderCards() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase();
+  const filtered = tananyagok.filter(t => {
+    const matchKat = activeFilter === 'Összes' || t.kategoria === activeFilter;
+    const matchQ = !q || t.cim.toLowerCase().includes(q) || t.leiras.toLowerCase().includes(q) || t.kategoria.toLowerCase().includes(q);
+    return matchKat && matchQ;
+  });
+
+  const container = document.getElementById('search-cards');
+  const count = document.getElementById('cards-count');
+  const noRes = document.getElementById('no-results');
+
+  count.textContent = filtered.length + ' tananyag';
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    noRes.style.display = 'block';
+  } else {
+    noRes.style.display = 'none';
+    container.innerHTML = filtered.map(t => cardHTML(t)).join('');
+  }
+}
+
+function cardHTML(t) {
+  return `<div class="card" onclick="navigate('tananyag', tananyagok.find(x=>x.id===${t.id}))">
+    <div class="card-thumb" style="font-size:2rem;">${t.ikon}</div>
+    <div>
+      <div class="card-kat">${t.kategoria}</div>
+      <div class="card-title">${t.cim}</div>
+    </div>
+    <div class="card-desc">${t.leiras.replace(/<[^>]*>/g,'').slice(0,80)}…</div>
+    <div class="card-arrow">Megnyitás →</div>
+  </div>`;
+}
+
+/* ══════════════════════════
+   FILTER BAR
+══════════════════════════ */
+function renderFilters() {
+  const kats = ['Összes', ...new Set(tananyagok.map(t => t.kategoria))];
+  const bar = document.getElementById('filter-bar');
+  bar.innerHTML = '<span class="filter-label">Kategória:</span>' +
+    kats.map(k => `<button class="filter-btn ${k === activeFilter ? 'active' : ''}" onclick="setFilter('${k}')">${k}</button>`).join('');
+}
+
+function setFilter(kat) {
+  activeFilter = kat;
+  renderFilters();
+  renderCards();
+}
+
+/* ══════════════════════════
+   COURSE PAGE
+══════════════════════════ */
+function renderCourse(t) {
+  currentCourse = t;
+  document.getElementById('course-breadcrumb-title').textContent = t.cim;
+  document.getElementById('course-kat').textContent = t.kategoria;
+  document.getElementById('course-title').textContent = t.cim;
+  document.getElementById('course-leiras').textContent = t.leiras.replace(/<[^>]*>/g,'');
+  document.getElementById('course-magyarazat').innerHTML = t.magyarazat;
+
+  const iframe = document.getElementById('course-iframe');
+  iframe.src = t.link;
+
+  const idx = tananyagok.indexOf(t);
+  const prev = idx > 0 ? tananyagok[idx - 1] : null;
+  const next = idx < tananyagok.length - 1 ? tananyagok[idx + 1] : null;
+
+  const nav = document.getElementById('course-nav');
+  nav.innerHTML = '';
+
+  if (prev) {
+    const btn = document.createElement('button');
+    btn.className = 'course-nav-btn';
+    btn.innerHTML = `<span class="cnb-hint">← Előző</span><span class="cnb-title">${prev.cim}</span>`;
+    btn.onclick = () => navigate('tananyag', prev);
+    nav.appendChild(btn);
+  }
+
+  if (next) {
+    const btn = document.createElement('button');
+    btn.className = 'course-nav-btn right';
+    btn.innerHTML = `<span class="cnb-hint">Következő →</span><span class="cnb-title">${next.cim}</span>`;
+    btn.onclick = () => navigate('tananyag', next);
+    nav.appendChild(btn);
+  }
+}
+
+/* ══════════════════════════
+   INIT
+══════════════════════════ */
+renderHomeCards();
+renderFilters();
+renderCards();
+</script>
+</body>
+</html>
