@@ -1,0 +1,7 @@
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\bin\Debug\Mat.exe.config
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\bin\Debug\Mat.exe
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\bin\Debug\Mat.pdb
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\obj\Debug\Mat.csprojAssemblyReference.cache
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\obj\Debug\Mat.csproj.CoreCompileInputs.cache
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\obj\Debug\Mat.exe
+C:\Users\karolyi_kristof_zsom\source\repos\Mat\Mat\obj\Debug\Mat.pdb

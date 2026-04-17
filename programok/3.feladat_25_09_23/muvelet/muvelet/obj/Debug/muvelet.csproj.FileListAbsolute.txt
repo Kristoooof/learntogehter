@@ -1,0 +1,7 @@
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\bin\Debug\muvelet.exe.config
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\bin\Debug\muvelet.exe
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\bin\Debug\muvelet.pdb
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\obj\Debug\muvelet.csprojAssemblyReference.cache
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\obj\Debug\muvelet.csproj.CoreCompileInputs.cache
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\obj\Debug\muvelet.exe
+C:\Users\karolyi_kristof_zsom\source\repos\muvelet\muvelet\obj\Debug\muvelet.pdb

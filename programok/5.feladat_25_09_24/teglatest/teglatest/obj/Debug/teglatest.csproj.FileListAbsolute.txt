@@ -1,0 +1,7 @@
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\bin\Debug\teglatest.exe.config
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\bin\Debug\teglatest.exe
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\bin\Debug\teglatest.pdb
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\obj\Debug\teglatest.csprojAssemblyReference.cache
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\obj\Debug\teglatest.csproj.CoreCompileInputs.cache
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\obj\Debug\teglatest.exe
+C:\Users\karolyi_kristof_zsom\source\repos\teglatest\teglatest\obj\Debug\teglatest.pdb

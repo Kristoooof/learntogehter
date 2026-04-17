@@ -1,0 +1,7 @@
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\bin\Debug\haromszog_terulet.exe.config
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\bin\Debug\haromszog_terulet.exe
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\bin\Debug\haromszog_terulet.pdb
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\obj\Debug\haromszog_terulet.csprojAssemblyReference.cache
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\obj\Debug\haromszog_terulet.csproj.CoreCompileInputs.cache
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\obj\Debug\haromszog_terulet.exe
+C:\Users\karolyi_kristof_zsom\source\repos\haromszog_terulet\haromszog_terulet\obj\Debug\haromszog_terulet.pdb
