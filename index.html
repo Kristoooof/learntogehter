@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnTogether - Programozás mindenkinek</title>
+    <style>
+        /* --- ALAP STÍLUSOK ÉS VÁZ --- */
+        :root {
+            --primary-bg: #ffffff;
+            --text-main: #333333;
+            --accent-color: #007bff;
+            --box-bg: #333333;
+            --card-bg: #f4f4f4;
+            --gray-text: #666666;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+        }
+
+        /* --- NAVIGÁCIÓ --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nav-links span {
+            margin-right: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-links span.active {
+            color: var(--accent-color);
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* --- OLDALAK KEZELÉSE --- */
+        .page {
+            display: none;
+            padding: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* --- 1. DRÓTVÁZ: FOGADÓ OLDAL --- */
+        #landing-page .hero-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .hero-image-placeholder {
+            width: 500px;
+            height: 500px;
+            background-color: var(--box-bg);
+            border-radius: 20px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .language-tags {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #eee;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* --- 2. DRÓTVÁZ: TANANYAGOK KERESŐ --- */
+        .search-bar-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .search-bar {
+            width: 60%;
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            font-size: 1.2rem;
+            background: #f9f9f9;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--box-bg);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .filter-btn.active {
+            background: var(--accent-color);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--box-bg);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 120px;
+            background-color: #888;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* --- 3. DRÓTVÁZ: TANANYAG OLDAL --- */
+        .lesson-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .lesson-top {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .embed-container {
+            flex: 2;
+            background: var(--box-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            height: 500px;
+        }
+
+        .embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .lesson-details {
+            flex: 1;
+        }
+
+        .lesson-details h2 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .lesson-details .task {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .lesson-explanation {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        
+        .back-btn {
+            margin-bottom: 20px;
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-links">
+            <span id="nav-home" class="active" onclick="navigateTo('landing-page')">Főoldal</span>
+            <span id="nav-catalog" onclick="navigateTo('catalog-page')">Tananyagok</span>
+        </div>
+        <div class="menu-icon">☰</div>
+    </header>
+
+    <div id="landing-page" class="page active">
+        <div class="hero-container">
+            <div class="hero-image-placeholder"></div>
+            <div class="hero-text">
+                <h1>Üdvözöl a LearnTogether!</h1>
+                <p>Fejleszd a programozási tudásodat interaktív feladatokon keresztül. Olvasd el a magyarázatot, és írd meg a kódot közvetlenül a böngésződben! Kezdjük az alapoktól a haladó szintig.</p>
+                <button class="btn-primary" onclick="navigateTo('catalog-page')">Tananyagok megtekintése</button>
+                
+                <div class="language-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">Python (Hamarosan)</span>
+                    <span class="tag">HTML/CSS (Hamarosan)</span>
+                    <span class="tag">JS (Hamarosan)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="catalog-page" class="page">
+        <div class="search-bar-container">
+            <input type="text" class="search-bar" placeholder="🔍 Keresés a tananyagok között..." id="searchInput" onkeyup="filterLessons()">
+        </div>
+        
+        <p>Tantárgyak</p>
+        <div class="category-filters" id="categoryFilters">
+            </div>
+
+        <div class="grid-container" id="lessonsGrid">
+            </div>
+    </div>
+
+    <div id="lesson-page" class="page">
+        <button class="back-btn" onclick="navigateTo('catalog-page')">← Vissza a tananyagokhoz</button>
+        
+        <div class="lesson-layout">
+            <div class="lesson-top">
+                <div class="embed-container" id="lessonEmbed">
+                    </div>
+                <div class="lesson-details">
+                    <h2 id="lessonTitle">Cím betöltése...</h2>
+                    <p class="task" id="lessonTask">Feladat betöltése...</p>
+                </div>
+            </div>
+            
+            <div class="lesson-explanation" id="lessonExplanation">
+                Magyarázat betöltése...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. JSON ADATBÁZIS SIMULÁCIÓ ---
+        // Ezt a jövőben egy fetch('data.json') hívással is betöltheted.
+        const lessonsData = [
+            {
+                id: "cs-hello",
+                language: "C#",
+                title: "Első program.",
+                task: "Írj egy programot, ami kiírja a konzolra, hogy 'Hello Világ!'.",
+                explanation: "A C# nyelvben a konzolos kiíratásra a <code>Console.WriteLine()</code> metódust használjuk. Ez a parancs kiírja a zárójelek és idézőjelek közé írt szöveget, majd egy új sorba ugrik. Próbáld meg átírni a szöveget a saját nevedre, és futtasd le a kódot a fenti 'Run' gombbal!",
+                embedUrl: "https://dotnetfiddle.net/Widget/cs?compiler=NetCore31&code=using%20System%3B%0A%0Apublic%20class%20Program%0A%7B%0A%09public%20static%20void%20Main()%0A%09%7B%0A%09%09Console.WriteLine(%22Hello%20Vil%C3%A1g!%22)%3B%0A%09%7D%0A%7D"
+            },
+            {
+                id: "cs-variables",
+                language: "C#",
+                title: "Változók és típusok",
+                task: "Hozz létre egy egész szám (int) és egy szöveg (string) típusú változót, majd írasd ki őket!",
+                explanation: "A változók olyanok, mint a dobozok, amikben adatokat tárolunk. C#-ban szigorúan meg kell adni, hogy a doboz (változó) milyen típusú adatot tárolhat. Pl: <code>int kor = 25;</code> vagy <code>string nev = \"Anna\";</code>.",
+                embedUrl: "https://dotnetfiddle.net/Widget/cs?compiler=NetCore31&code=using%20System%3B%0A%0Apublic%20class%20Program%0A%7B%0A%09public%20static%20void%20Main()%0A%09%7B%0A%09%09int%20szam%20%3D%2010%3B%0A%09%09string%20szoveg%20%3D%20%22Alma%22%3B%0A%09%09Console.WriteLine(szoveg%20%2B%20%22%20%22%20%2B%20szam)%3B%0A%09%7D%0A%7D"
+            },
+            {
+                id: "py-print",
+                language: "Python",
+                title: "Konzolos kiíratás Pythonban",
+                task: "Használd a print() függvényt szöveg kiíratására.",
+                explanation: "A Python sokkal tömörebb, mint a C#. Nincs szükség bonyolult osztályok (class) létrehozására az alapokhoz. Egyszerűen csak használd a <code>print('szöveg')</code> parancsot.",
+                embedUrl: "https://ideone.com/e.js/your_python_fiddle_id" // Ideone beágyazás példa helye
+            }
+        ];
+
+        let currentFilter = 'All';
+
+        // --- 2. OLDALAK KÖZÖTTI NAVIGÁCIÓ ---
+        function navigateTo(pageId) {
+            // Minden oldal elrejtése
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            // Kiválasztott oldal megjelenítése
+            document.getElementById(pageId).classList.add('active');
+
+            // Navigációs menü stílusának frissítése
+            document.querySelectorAll('.nav-links span').forEach(link => link.classList.remove('active'));
+            if(pageId === 'landing-page') document.getElementById('nav-home').classList.add('active');
+            if(pageId === 'catalog-page') document.getElementById('nav-catalog').classList.add('active');
+
+            // Ha a katalógust nyitjuk meg, rendereljük ki a kártyákat
+            if(pageId === 'catalog-page') {
+                renderCatalog();
+            }
+        }
+
+        // --- 3. TANANYAGOK RENDERELÉSE (2. Drótváz) ---
+        function renderCatalog() {
+            const grid = document.getElementById('lessonsGrid');
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            grid.innerHTML = '';
+
+            // Dinamikus kategória gombok generálása
+            const categories = ['All', ...new Set(lessonsData.map(l => l.language))];
+            const filterContainer = document.getElementById('categoryFilters');
+            filterContainer.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `filter-btn ${currentFilter === cat ? 'active' : ''}`;
+                btn.innerText = cat === 'All' ? 'Összes' : cat;
+                btn.onclick = () => {
+                    currentFilter = cat;
+                    renderCatalog();
+                };
+                filterContainer.appendChild(btn);
+            });
+
+            // Kártyák szűrése és rajzolása
+            const filteredData = lessonsData.filter(lesson => {
+                const matchesSearch = lesson.title.toLowerCase().includes(searchInput) || lesson.task.toLowerCase().includes(searchInput);
+                const matchesCategory = currentFilter === 'All' || lesson.language === currentFilter;
+                return matchesSearch && matchesCategory;
+            });
+
+            filteredData.forEach(lesson => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openLesson(lesson.id);
+                
+                card.innerHTML = `
+                    <div class="card-img">
+                        <div style="padding: 10px; color: #fff; font-weight: bold;">${lesson.language}</div>
+                    </div>
+                    <h3>${lesson.title}</h3>
+                    <p>${lesson.task}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Kereső mező eseménykezelője
+        function filterLessons() {
+            renderCatalog();
+        }
+
+        // --- 4. KONKRÉT TANANYAG MEGNYITÁSA (3. Drótváz) ---
+        function openLesson(lessonId) {
+            const lesson = lessonsData.find(l => l.id === lessonId);
+            if(!lesson) return;
+
+            // Adatok betöltése a DOM-ba
+            document.getElementById('lessonTitle').innerText = lesson.title;
+            document.getElementById('lessonTask').innerText = "Feladat: " + lesson.task;
+            document.getElementById('lessonExplanation').innerHTML = "<h3>Magyarázat</h3>" + lesson.explanation;
+            
+            // Iframe beágyazása
+            const embedContainer = document.getElementById('lessonEmbed');
+            embedContainer.innerHTML = `<iframe src="${lesson.embedUrl}" frameborder="0"></iframe>`;
+
+            // Oldalváltás
+            navigateTo('lesson-page');
+            document.querySelectorAll('.nav-links span').forEach(link => link.classList.remove('active'));
+        }
+
+        // Oldal betöltésekor a kezdőképernyő inicializálása
+        window.onload = () => {
+            navigateTo('landing-page');
+        };
+    </script>
+</body>
+</html>
