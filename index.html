@@ -323,9 +323,12 @@
                 id: "cs-hello",
                 language: "C#",
                 title: "Első program.",
-                task: "Írj egy programot, ami kiírja a konzolra, hogy 'Hello Világ!'.",
-                explanation: "A C# nyelvben a konzolos kiíratásra a <code>Console.WriteLine()</code> metódust használjuk. Ez a parancs kiírja a zárójelek és idézőjelek közé írt szöveget, majd egy új sorba ugrik. Próbáld meg átírni a szöveget a saját nevedre, és futtasd le a kódot a fenti 'Run' gombbal!",
-                embedUrl: "https://dotnetfiddle.net/Widget/cs?compiler=NetCore31&code=using%20System%3B%0A%0Apublic%20class%20Program%0A%7B%0A%09public%20static%20void%20Main()%0A%09%7B%0A%09%09Console.WriteLine(%22Hello%20Vil%C3%A1g!%22)%3B%0A%09%7D%0A%7D"
+                task: "A program célja, hogy deklaráljon két egész szám típusú változót (a és b), értket adjon nekik, majd kiszámítsa az összegüket és az eredményt egy formázott szöveggel együtt megjelenítse a konzolablakban.",
+                explanation: `Ebben a kódban több olyan elem is van, ami fontos az alapok megértéséhez:
+<code>int a = 2, b = 5;</code>: Az int az "integer" (egész szám) rövidítése. Itt egyszerre két változót hoztunk létre, és rögtön értéket is adtunk nekik.
+<code>Console.WriteLine(..., a + b);</code>: Ez a függvény írja ki a szöveget. A különlegessége a {0} használata: ez egy úgynevezett helyfoglaló (placeholder). Azt mondja a gépnek: "Ide tedd be a vessző utáni első kifejezés (a + b) eredményét". Ha lenne {1} is, oda a következő adat kerülne.
+<code>Console.ReadKey();</code>: Ez a parancs arra utasítja a programot, hogy várjon egy gombnyomásra. Ha ezt kihagynánk, a konzolablak a számolás után azonnal bezáródna, és nem látnánk az eredményt.`,
+                embedUrl: "https://dotnetfiddle.net/Widget?Languages=CSharp&CSharp_FiddleId=aVJTpL"
             },
             {
                 id: "cs-variables",
