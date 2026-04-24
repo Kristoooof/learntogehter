@@ -369,6 +369,32 @@ header {
     background: #f1f5f9;
     color: var(--text-main);
 }
+
+/* --- EXTRA: Dinamikus címkék (Badges) --- */
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge {
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.badge-soon {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
     </style>
 </head>
 <body>
@@ -385,9 +411,9 @@ header {
         <div class="hero-container">
             <div class="hero-image-placeholder"><img src="learn.png"></div>
             <div class="hero-text">
-                <h1>Üdvözöl a LearnTogether!</h1>
-                <p>Fejleszd a programozási tudásodat interaktív feladatokon keresztül. Olvasd el a magyarázatot, és írd meg a kódot közvetlenül a böngésződben! Kezdjük az alapoktól a haladó szintig.</p>
-                <button class="btn-primary" onclick="navigateTo('catalog-page')">Tananyagok megtekintése</button>
+                <h1>Kódolj. Fejlődj.<br><span style="color: var(--accent);">Építsd a jövőd.</span></h1>
+                <p>A LearnTogether nem csak egy újabb elméleti gyorstalpaló. Nálunk interaktív feladatokon keresztül, azonnali visszajelzéssel tanulhatsz. Olvasd el a magyarázatot, írd meg a kódot közvetlenül a böngésződben, és válj magabiztos fejlesztővé a saját tempódban!</p>
+                <buttonclass="btn-primary" onclick="navigateTo('catalog-page')">Tananyagok megtekintése</button>
                 
                 <div class="language-tags">
                     <span class="tag">C#</span>
@@ -563,8 +589,33 @@ header {
 
         // Oldal betöltésekor a kezdőképernyő inicializálása
         window.onload = () => {
+            renderLanguageTags();
             navigateTo('landing-page');
         };
+
+        // --- DINAMIKUS CÍMKÉK GENERÁLÁSA ---
+        function renderLanguageTags() {
+            const container = document.getElementById('dynamicLanguageTags');
+            
+            // Ezeket a nyelveket akarjuk megjeleníteni a főoldalon
+            const targetLanguages = ['C#', 'Python', 'HTML/CSS', 'JS'];
+            let tagsHtml = '';
+
+            targetLanguages.forEach(lang => {
+                // Megszámoljuk, hány olyan lecke van a JSON-ben, ami ehhez a nyelvhez tartozik
+                const count = lessonsData.filter(l => l.language === lang).length;
+                
+                if (count > 0) {
+                    // Ha van lecke, kiírjuk a számot
+                    tagsHtml += `<span class="tag">${lang} <span class="badge">${count} lecke</span></span>`;
+                } else {
+                    // Ha nincs (0), akkor "Hamarosan" feliratot kap
+                    tagsHtml += `<span class="tag" style="opacity: 0.7;">${lang} <span class="badge-soon">Hamarosan</span></span>`;
+                }
+            });
+
+            container.innerHTML = tagsHtml;
+        }
     </script>
 </body>
 </html>
