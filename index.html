@@ -440,12 +440,20 @@ header {
                 embedUrl: "https://dotnetfiddle.net/Widget?Languages=CSharp&CSharp_FiddleId=aVJTpL"
             },
             {
-                id: "cs-variables",
+                id: "cs-operation",
                 language: "C#",
-                title: "Változók és típusok",
-                task: "Hozz létre egy egész szám (int) és egy szöveg (string) típusú változót, majd írasd ki őket!",
-                explanation: "A változók olyanok, mint a dobozok, amikben adatokat tárolunk. C#-ban szigorúan meg kell adni, hogy a doboz (változó) milyen típusú adatot tárolhat. Pl: <code>int kor = 25;</code> vagy <code>string nev = \"Anna\";</code>.",
-                embedUrl: "https://dotnetfiddle.net/Widget/cs?compiler=NetCore31&code=using%20System%3B%0A%0Apublic%20class%20Program%0A%7B%0A%09public%20static%20void%20Main()%0A%09%7B%0A%09%09int%20szam%20%3D%2010%3B%0A%09%09string%20szoveg%20%3D%20%22Alma%22%3B%0A%09%09Console.WriteLine(szoveg%20%2B%20%22%20%22%20%2B%20szam)%3B%0A%09%7D%0A%7D"
+                title: "Műveletek",
+                task: "A program célja, hogy két tizedes törtet (double) kérjen be a felhasználótól a konzolon keresztül. Ezután elvégzi a két szám szorzását (annak ellenére, hogy a kiírt szöveg összeget említ), és az eredményt pontosan három tizedesjegyre kerekítve jeleníti meg.",
+                explanation: `double: Ez a típus tizedes törtek tárolására szolgál. Az <code>int</code>-tel ellentétben itt használhatsz pontot/vesszőt (a Windows nyelvi beállításától függően).
+
+<code>Console.Write()</code>: Nagyon hasonlít a <code>WriteLine</code>-hoz, de ez nem kezd új sort. Így a felhasználó közvetlenül a kérdés után, ugyanabba a sorba tudja írni a választ.
+
+<code>Console.ReadLine()</code>: Ez a függvény beolvas egy teljes sort a konzolról, amit a felhasználó beírt. Fontos, hogy ez alapvetően szöveget (string) ad vissza.
+
+<code>Convert.ToDouble(...)</code>: Mivel a <code>ReadLine</code> szöveget ad, de nekünk számra van szükségünk a matekhoz, ezzel a paranccsal "fordítjuk le" a szöveget tizedes törtté.
+
+<code>{0:0.000}</code>: Ez egy formázó maszk. A kettőspont utáni rész (0.000) azt mondja a programnak, hogy az eredményt fixen 3 tizedesjeggyel jelenítse meg, akkor is, ha azok nullák.`,
+                embedUrl: "https://dotnetfiddle.net/Widget?Languages=CSharp&CSharp_FiddleId=1VXilQ"
             },
             {
                 id: "py-print",
