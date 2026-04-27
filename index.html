@@ -626,6 +626,13 @@ header {
 
             container.innerHTML = tagsHtml;
         }
+
+        // --- CÍMKE KATTINTÁS ÉS SZŰRÉS ---
+        function navigateToCatalogWithFilter(lang) {
+            currentFilter = lang;
+            localStorage.setItem('savedFilter', currentFilter); // Megjegyezzük a szűrőt
+            navigateTo('catalog-page');
+        }
     </script>
 </body>
 </html>
