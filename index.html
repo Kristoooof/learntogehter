@@ -512,6 +512,7 @@ header {
 
         // --- 2. OLDALAK KÖZÖTTI NAVIGÁCIÓ ---
         function navigateTo(pageId) {
+            localStorage.setItem('savedPage', pageId); // <-- EZT A SORT ADD HOZZÁ
             // Minden oldal elrejtése
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             // Kiválasztott oldal megjelenítése
@@ -545,7 +546,9 @@ header {
                 btn.innerText = cat === 'All' ? 'Összes' : cat;
                 btn.onclick = () => {
                     currentFilter = cat;
+                    localStorage.setItem('savedFilter', currentFilter); // <-- EZT A SORT ADD HOZZÁ
                     renderCatalog();
+                };
                 };
                 filterContainer.appendChild(btn);
             });
@@ -580,6 +583,7 @@ header {
 
         // --- 4. KONKRÉT TANANYAG MEGNYITÁSA (3. Drótváz) ---
         function openLesson(lessonId) {
+            localStorage.setItem('savedLesson', lessonId); // <-- EZT A SORT ADD HOZZÁ
             const lesson = lessonsData.find(l => l.id === lessonId);
             if(!lesson) return;
 
@@ -598,9 +602,22 @@ header {
         }
 
         // Oldal betöltésekor a kezdőképernyő inicializálása
+        // Oldal betöltésekor az utolsó állapot visszatöltése
         window.onload = () => {
             renderLanguageTags();
-            navigateTo('landing-page');
+            
+            // Adatok kiolvasása a helyi tárhelyből
+            const savedPage = localStorage.getItem('savedPage') || 'landing-page';
+            currentFilter = localStorage.getItem('savedFilter') || 'All';
+            const savedLesson = localStorage.getItem('savedLesson');
+
+            // Ha egy konkrét tananyagon voltunk, azt nyitjuk meg
+            if (savedPage === 'lesson-page' && savedLesson) {
+                openLesson(savedLesson);
+            } else {
+                // Különben az utoljára megnyitott oldalt (vagy a főoldalt)
+                navigateTo(savedPage);
+            }
         };
 
         // --- DINAMIKUS CÍMKÉK GENERÁLÁSA ---
