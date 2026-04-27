@@ -616,8 +616,8 @@ header {
                 const count = lessonsData.filter(l => l.language === lang).length;
                 
                 if (count > 0) {
-                    // Ha van lecke, kiírjuk a számot
-                    tagsHtml += `<span class="tag">${lang} <span class="badge">${count} lecke</span></span>`;
+                    // Ha van lecke, kattinthatóvá tesszük, és egyből szűrünk
+                    tagsHtml += `<span class="tag" style="cursor: pointer; transition: 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'" onclick="navigateToCatalogWithFilter('${lang}')">${lang} <span class="badge">${count} lecke</span></span>`;
                 } else {
                     // Ha nincs (0), akkor "Hamarosan" feliratot kap
                     tagsHtml += `<span class="tag" style="opacity: 0.7;">${lang} <span class="badge-soon">Hamarosan</span></span>`;
